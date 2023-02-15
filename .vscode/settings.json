@@ -1,0 +1,7 @@
+// fix errors on save
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript"]
+}

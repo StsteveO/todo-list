@@ -13,21 +13,34 @@ html {
   /* --light-green-bg: #476529; */
   /* example, color: var(--navy-clr) */
   --prim-clr: #22babb;
-  --sec-clr: rgba(0,0,0,.7);
+  --sec-clr: rgb(190, 190, 190);
   --acc-clr: #348888;
 }
 .page-container {
   height: 100%;
   display: grid;
   grid-template-columns: 25% 75%;
-  grid-template-rows: 20% 80%;
+  grid-template-rows: auto 80%;
 }
 header{
-  background-color: skyblue;
+  background-color: var(--sec-clr);
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
+  padding: 1rem;
+  border: 2px solid black;
+}
+.header-title{
+  font-weight: bolder;
+  font-size: 4rem;
+}
+.header-btn{
+  font-size: large;
+  padding: 1rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  border-radius: 10px;
 }
 nav{
   background-color: rgb(206, 0, 206);

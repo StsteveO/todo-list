@@ -6,5 +6,7 @@ import fxn from "./functions";
 console.log("hello world");
 
 const logic = (() => {
+    const currentViewedList=[];
+    
     doc.headerBtn.addEventListener("click", fxn.showOverlay);
 })();

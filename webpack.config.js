@@ -13,6 +13,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       // html file in dist
       title: "To-do List",
+      filename: "index.html",
+      template: path.resolve(__dirname, "src/template.html"),
     }),
   ],
   devtool: "inline-source-map",

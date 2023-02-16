@@ -1,0 +1,37 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+:root {
+  /* --custom name: value; */
+  /* --light-green-bg: #476529; */
+  /* example, color: var(--navy-clr) */
+  --prim-clr: #22babb;
+  --sec-clr: rgba(0,0,0,.7);
+  --acc-clr: #348888;
+}
+.page-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 25% 75%;
+  grid-template-rows: 20% 80%;
+}
+header{
+  background-color: skyblue;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+nav{
+  background-color: rgb(206, 0, 206);
+}
+main{
+  background-color: rgb(255, 178, 35);
+}

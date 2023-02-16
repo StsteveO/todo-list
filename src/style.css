@@ -22,7 +22,7 @@ html {
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
 }
-header{
+header {
   background-color: var(--sec-clr);
   grid-column-start: 1;
   grid-column-end: 3;
@@ -31,23 +31,23 @@ header{
   padding: 1rem;
   border: 2px solid black;
 }
-.header-title{
+.header-title {
   font-weight: bolder;
   font-size: 4rem;
 }
-.header-btn{
+.header-btn {
   font-size: large;
   padding: 1rem;
   padding-left: 5rem;
   padding-right: 5rem;
   border-radius: 10px;
   cursor: pointer;
-  transition: .25s;
+  transition: 0.25s;
 }
-.header-btn:hover{
+.header-btn:hover {
   transform: scale(1.1);
 }
-nav{
+nav {
   padding: 1rem;
   background-color: rgb(206, 0, 206);
   border: 2px solid black;
@@ -55,7 +55,7 @@ nav{
   flex-direction: column;
   align-items: center;
 }
-.nav-title{
+.nav-title {
   font-weight: bold;
   font-size: 2rem;
   text-align: center;
@@ -64,61 +64,76 @@ nav{
 .nav-full-list,
 .nav-high-pri,
 .nav-med-pri,
-.nav-low-pri{
+.nav-low-pri {
   font-size: medium;
-  padding: .5rem;
+  padding: 0.5rem;
   padding-left: 3rem;
   padding-right: 3rem;
   border-radius: 10px;
   margin-top: 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
-  transition: .25s;
+  transition: 0.25s;
 }
 .nav-full-list:hover,
 .nav-high-pri:hover,
 .nav-med-pri:hover,
-.nav-low-pri:hover{
+.nav-low-pri:hover {
   transform: scale(1.1);
 }
-.nav-high-pri{
+.nav-high-pri {
   background-color: red;
 }
-.nav-med-pri{
+.nav-med-pri {
   background-color: yellow;
 }
-.nav-low-pri{
+.nav-low-pri {
   background-color: green;
 }
-.nav-project{
+.nav-project {
   font-weight: bold;
   font-size: 2rem;
   text-align: center;
   border-bottom: 2px solid black;
   margin-top: 1rem;
 }
-.add-project{
+.add-project {
   font-size: medium;
-  padding: .5rem;
+  padding: 0.5rem;
   padding-left: 3rem;
   padding-right: 3rem;
   border-radius: 10px;
   margin-top: 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
-  transition: .25s;
+  transition: 0.25s;
 }
-.add-project:hover{
+.add-project:hover {
   transform: scale(1.1);
 }
-main{
+main {
   border: 2px solid black;
   padding: 1rem;
   background-color: rgb(255, 178, 35);
 }
-.main-full-list{
+.main-full-list {
   font-weight: bold;
   font-size: 2rem;
   /* text-align: center; */
   border-bottom: 2px solid black;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  opacity: 0;
+  transition: 200ms;
+}
+.overlay.show{
+  opacity: 1;
+  pointer-events: all;
 }

@@ -19,8 +19,8 @@ html {
 .page-container {
   height: 100%;
   display: grid;
-  grid-template-columns: 25% 75%;
-  grid-template-rows: auto 80%;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
 }
 header{
   background-color: var(--sec-clr);
@@ -41,10 +41,84 @@ header{
   padding-left: 5rem;
   padding-right: 5rem;
   border-radius: 10px;
+  cursor: pointer;
+  transition: .25s;
+}
+.header-btn:hover{
+  transform: scale(1.1);
 }
 nav{
+  padding: 1rem;
   background-color: rgb(206, 0, 206);
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nav-title{
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  border-bottom: 2px solid black;
+}
+.nav-full-list,
+.nav-high-pri,
+.nav-med-pri,
+.nav-low-pri{
+  font-size: medium;
+  padding: .5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: .25s;
+}
+.nav-full-list:hover,
+.nav-high-pri:hover,
+.nav-med-pri:hover,
+.nav-low-pri:hover{
+  transform: scale(1.1);
+}
+.nav-high-pri{
+  background-color: red;
+}
+.nav-med-pri{
+  background-color: yellow;
+}
+.nav-low-pri{
+  background-color: green;
+}
+.nav-project{
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  border-bottom: 2px solid black;
+  margin-top: 1rem;
+}
+.add-project{
+  font-size: medium;
+  padding: .5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: .25s;
+}
+.add-project:hover{
+  transform: scale(1.1);
 }
 main{
+  border: 2px solid black;
+  padding: 1rem;
   background-color: rgb(255, 178, 35);
+}
+.main-full-list{
+  font-weight: bold;
+  font-size: 2rem;
+  /* text-align: center; */
+  border-bottom: 2px solid black;
 }

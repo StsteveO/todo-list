@@ -12,7 +12,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       // html file in dist
-      title: "Todo List",
+      title: "To-do List",
     }),
   ],
   devtool: "inline-source-map",

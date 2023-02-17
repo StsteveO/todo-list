@@ -7,6 +7,36 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <div class="form">
+        <form action="" method="post">
+          <div>(*= Required)</div>
+            <fieldset>
+                <legend>Information</legend>
+                <label for="task">Task*</label>
+                <br>
+                <input type="text" name="task" id="task" required placeholder="Take out the trash">
+                <br>
+                <label for="due_date">Due Date</label>
+                <br>
+                <input type="date" name="due_date" id="due_date">
+            </fieldset>
+            <fieldset>
+                <legend>Priority Level*</legend>
+                <input type="radio" name="priority" id="no_priority" value="no_priority" checked>
+                <label for="no_priority">No Priority</label>
+                <br>
+                <input type="radio" name="priority" id="low_priority" value="low_priority">
+                <label for="low_priority">Low Priority</label>
+                <br>
+                <input type="radio" name="priority" id="med_priority" value="med_priority">
+                <label for="med_priority">Medium Priority</label>
+                <br>
+                <input type="radio" name="priority" id="high_priority" value="high_priority">
+                <label for="high_priority">High Priority</label>
+            </fieldset>
+            <button type="submit" id="submit-btn">Submit</button>
+            <button class="close-btn">Close</button>
+        </form>
+    </div>
   </body>
 </html>

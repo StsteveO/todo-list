@@ -137,3 +137,23 @@ main {
   opacity: 1;
   pointer-events: all;
 }
+.form{
+  background-color: white;
+  border: black 2px solid;
+  border-radius: 10px;
+  height: 20rem;
+  width: 17rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+}
+.form.show{
+  transform: translate(-50%, -50%) scale(1);
+  transition: 200ms;
+}

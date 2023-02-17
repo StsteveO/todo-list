@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dummy Html</title>
+</head>
+<body>
+    <h1>Dummy Html</h1>
+    <div class="form">
+        <form action="" method="post">
+            <fieldset>
+                <legend>Information (*= Required)</legend>
+                <label for="task">Task*</label>
+                <br>
+                <input type="text" name="task" id="task" required placeholder="Take out the trash">
+                <br>
+                <label for="due_date">Due Date</label>
+                <br>
+                <input type="date" name="due_date" id="due_date">
+            </fieldset>
+            <fieldset>
+                <legend>Priority Level*</legend>
+                <input type="radio" name="priority" id="no_priority" value="no_priority" checked>
+                <label for="no_priority">No Priority</label>
+                <br>
+                <input type="radio" name="priority" id="low_priority" value="low_priority">
+                <label for="low_priority">Low Priority</label>
+                <br>
+                <input type="radio" name="priority" id="med_priority" value="med_priority">
+                <label for="med_priority">Medium Priority</label>
+                <br>
+                <input type="radio" name="priority" id="high_priority" value="high_priority">
+                <label for="high_priority">High Priority</label>
+            </fieldset>
+            <button type="submit" id="submit-btn">Submit</button>
+            <button class="close-btn">Close</button>
+        </form>
+    </div>
+</body>
+</html>
+
+<!-- <div class="form show">
+          <button class="close-btn">Close</button>
+          <br>
+          <form action="" method="post">
+            <fieldset>
+              <legend>Task</legend>
+              <label for="title">Title</label>
+              <br>
+              <input type="text" name="book_title" id="title" required>
+              <br>
+              <label for="author">Author</label>
+              <br>
+              <input type="text" name="book_author" id="author" required>
+              <br>
+              <label for="page_numbers">Number of Pages</label>
+              <br>
+              <input type="number" name="page_numbers" id="page_numbers" required>
+              <h4>Priority?</h4>
+              <div class="radio-yes-read">
+                <label for="did_read">Yes</label>
+                <input type="radio" name="read_status" id="did_read" value="Read" required>
+              </div>
+              <div class="radio-not-read">
+                <label for="did_not_read">No</label>
+                <input type="radio" name="read_status" id="did_not_read" value="Not Read" required>
+              </div>
+              <br>
+              <button type="submit" id="submit-btn">Submit</button>
+            </fieldset>
+          </form>
+        </div> -->

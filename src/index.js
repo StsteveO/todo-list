@@ -8,5 +8,7 @@ console.log("hello world");
 const logic = (() => {
     const currentViewedList=[];
     
-    doc.headerBtn.addEventListener("click", fxn.showOverlay);
+    doc.headerBtn.addEventListener("click", fxn.showPopup);
+    //closepopup is already created
+    form.overlay.addEventListener("click", fxn.closePopup);
 })();

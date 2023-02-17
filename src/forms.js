@@ -5,7 +5,9 @@ const form = (() => {
     overlay.classList.add("overlay");
     document.body.appendChild(overlay);
 
-    return{overlay}
+    const formForTask= document.querySelector(".form");
+
+    return { overlay, formForTask};
 })();
 
 export default form;

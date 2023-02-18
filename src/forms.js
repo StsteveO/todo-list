@@ -7,7 +7,9 @@ const form = (() => {
 
     const formForTask= document.querySelector(".form");
 
-    return { overlay, formForTask};
+    const closeBtn=document.querySelector(".close-btn");
+
+    return { overlay, formForTask, closeBtn};
 })();
 
 export default form;

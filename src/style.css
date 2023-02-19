@@ -157,3 +157,9 @@ main {
   transform: translate(-50%, -50%) scale(1);
   transition: 200ms;
 }
+.row-container{
+  height: 200px;
+  width: 200px;
+  background-color: skyblue;
+  border: 2px solid blue;
+}

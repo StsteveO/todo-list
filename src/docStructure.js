@@ -55,7 +55,7 @@ const doc = (() => {
     nav.appendChild(addProject);
     main.appendChild(mainFullList);
 
-    return{headerBtn};
+    return{headerBtn, main};
 })();
 
 export default doc;

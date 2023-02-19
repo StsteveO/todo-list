@@ -157,9 +157,42 @@ main {
   transform: translate(-50%, -50%) scale(1);
   transition: 200ms;
 }
-.row-container{
-  height: 200px;
-  width: 200px;
+.task-container{
+  height: auto;
   background-color: skyblue;
   border: 2px solid blue;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 10px;
+  transition: 0.25s;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: .5rem;
+}
+.task-container:hover {
+  transform: scale(1.05);
+}
+.container-title{
+  font-size: larger;
+  font-weight: 500;
+}
+.container-priority,
+.container-due-date{
+  font-size: medium;
+}
+.container-due-date{
+  justify-self: end;
+}
+.container-high-priority{
+  background-color: rgb(255, 79, 79);
+  border: 2px solid black;
+}
+.container-med-priority{
+  background-color: rgb(255, 255, 55);
+  border: 2px solid black;
+}
+.container-low-priority{
+  background-color: rgb(64, 255, 64);
+  border: 2px solid black;
 }

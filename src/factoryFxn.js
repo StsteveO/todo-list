@@ -7,7 +7,11 @@ class Todo {
   }
 };
 
+export default Todo;
+
 // <div>            <div>
 // task             dueDate
 // priority         daysLeft
 // <div>            <div>
+
+// let new task= new Todo("take out trash", No Priority, No Due Date given)

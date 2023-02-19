@@ -181,7 +181,8 @@ main {
 .container-due-date{
   font-size: medium;
 }
-.container-due-date{
+.container-due-date,
+.container-date-difference{
   justify-self: end;
 }
 .container-high-priority{
@@ -195,4 +196,17 @@ main {
 .container-low-priority{
   background-color: rgb(64, 255, 64);
   border: 2px solid black;
+}
+.container-date-difference{
+  font-size: medium;
+}
+.container-complete-btn{
+  font-size: medium;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.container-delete-btn{
+  font-size: medium;
+  border-radius: 10px;
+  cursor: pointer;
 }

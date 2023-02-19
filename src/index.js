@@ -67,6 +67,21 @@ const logic = (() => {
     containerPriority.textContent = newTask.priorityLevel;
     taskContainer.appendChild(containerPriority);
 
+    const containerDateDifference = document.createElement("div");
+    containerDateDifference.classList.add("container-date-difference");
+    containerDateDifference.textContent = "Place Holder";
+    taskContainer.appendChild(containerDateDifference);
+
+    const containerCompleteBtn = document.createElement("button");
+    containerCompleteBtn.classList.add("container-complete-btn");
+    containerCompleteBtn.textContent = "Completed";
+    taskContainer.appendChild(containerCompleteBtn);
+
+    const containerDeleteBtn = document.createElement("button");
+    containerDeleteBtn.classList.add("container-delete-btn");
+    containerDeleteBtn.textContent = "Delete";
+    taskContainer.appendChild(containerDeleteBtn);
+
     if (containerPriority.textContent === "High Priority") {
       taskContainer.classList.add("container-high-priority");
     } else if (containerPriority.textContent === "Medium Priority") {

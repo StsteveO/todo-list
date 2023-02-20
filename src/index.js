@@ -2,13 +2,16 @@ import "./style.css";
 import doc from "./docStructure";
 import form from "./forms";
 import fxn from "./functions";
-import total from "./listArrays";
+// import { total } from "./listArrays";
 import Todo from "./factoryFxn";
+import { format, formatDistanceToNowStrict, formatDistanceToNow, addDays } from "date-fns";
 
 const logic = (() => {
+  const totalList= [];
+
   doc.headerBtn.addEventListener("click", fxn.showPopup);
   form.overlay.addEventListener("click", fxn.closePopup);
-  form.closeBtn.addEventListener("click", fxn.closePopup);
+  // form.closeBtn.addEventListener("click", fxn.closePopup);
 
   form.forTask.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -21,7 +24,8 @@ const logic = (() => {
       if (e.path[0][2].value === "" || e.path[0][2].value === undefined) {
         return "No Date Given";
       } else {
-        return `Due date: ${e.path[0][2].value}`;
+        const updatedDate = addDays(new Date(e.path[0][2].value), 1);
+        return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
       }
     };
 
@@ -39,14 +43,18 @@ const logic = (() => {
       }
     };
 
-    // console.log(taskTitle());
-    // console.log(dueDate());
-    // console.log(priorityResult());
+    const dateDifference= () =>{
+      if (dueDate()==="No Date Given"){
+        return
+      } else{
+        return formatDistanceToNow(new Date(e.path[0][2].value), { addSuffix: true });
+      }
+    };
 
     const newTask = new Todo(taskTitle(), priorityResult(), dueDate());
     // constructor(taskTitle, priorityLevel, dueDate, daysLeft) {
 
-    console.log(newTask);
+    // console.log(newTask);
 
     const taskContainer = document.createElement("div");
     taskContainer.classList.add("task-container");
@@ -69,7 +77,7 @@ const logic = (() => {
 
     const containerDateDifference = document.createElement("div");
     containerDateDifference.classList.add("container-date-difference");
-    containerDateDifference.textContent = "Place Holder";
+    containerDateDifference.textContent = dateDifference();
     taskContainer.appendChild(containerDateDifference);
 
     const containerCompleteBtn = document.createElement("button");
@@ -90,6 +98,25 @@ const logic = (() => {
       taskContainer.classList.add("container-low-priority");
     };
 
+    totalList.push(newTask);
+
     fxn.closePopup();
+
+    doc.main.addEventListener("click", (e) => {
+      if (e.target.textContent === "Delete") {
+        // totalList.splice(1,1);
+        // taskContainer.remove();
+      }
+      console.log(e);
+      console.log(totalList);
+    });
+
+
   });
+
+
+
 })();
+
+
+

@@ -7,7 +7,7 @@ import Todo from "./factoryFxn";
 import { format, formatDistanceToNowStrict, formatDistanceToNow, addDays } from "date-fns";
 
 const logic = (() => {
-  const totalList= [];
+  const totalList = [];
 
   doc.headerBtn.addEventListener("click", fxn.showPopup);
   form.overlay.addEventListener("click", fxn.closePopup);
@@ -57,6 +57,7 @@ const logic = (() => {
     // console.log(newTask);
 
     const taskContainer = document.createElement("div");
+    taskContainer.setAttribute("id", `todo #${totalList.length}`);
     taskContainer.classList.add("task-container");
     doc.main.appendChild(taskContainer);
 
@@ -97,7 +98,7 @@ const logic = (() => {
     } else if (containerPriority.textContent === "Low Priority") {
       taskContainer.classList.add("container-low-priority");
     };
-
+    
     totalList.push(newTask);
 
     fxn.closePopup();
@@ -106,16 +107,18 @@ const logic = (() => {
       if (e.target.textContent === "Delete") {
         // totalList.splice(1,1);
         // taskContainer.remove();
+        // console.log(e);
+        // console.log(totalList);
+        // console.log(taskContainer.getAttribute("id"));
+        // console.log(e);
+        const selectedContainer= document.getElementById(e.path[1].getAttribute("id"));
+        selectedContainer.remove();
       }
-      console.log(e);
-      console.log(totalList);
     });
 
 
+
   });
-
-
-
 })();
 
 

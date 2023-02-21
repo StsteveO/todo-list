@@ -95,22 +95,56 @@ const lists=(()=>{
         taskContainer.classList.add("container-med-priority");
       } else if (containerPriority.textContent === "Low Priority") {
         taskContainer.classList.add("container-low-priority");
-      };
+      }
     }
-
-    console.log(totalList);
     //put everything above here
     fxn.closePopup();
   });
 
+  doc.main.addEventListener("click", (e)=>{
+    if(e.target.textContent==="Delete"){
+      const wholeContainer= e.path[1]; //same as taskContainer
+      console.log(wholeContainer);
+      const wholeContainerIndex = wholeContainer.getAttribute("id");
+      console.log(wholeContainerIndex);
+      const nextIndex= ((Number(wholeContainerIndex))+1);
+      console.log(nextIndex);
+      wholeContainer.remove();
+      totalList.splice((wholeContainerIndex),1);
+
+      for (let i = nextIndex; i < totalList.length; i++) {
+        const nextContainer= document.getElementById(`${i}`);
+        nextContainer.setAttribute("id", ((Number(`${i}`))-1));
+      };
+
+      console.log(totalList);
+    }
+  });
+  
   // end of lists
 })();
 
 const logic = (() => {
-  const totalList = [];
 
   doc.headerBtn.addEventListener("click", fxn.showPopup);
   form.overlay.addEventListener("click", fxn.closePopup);
+
+  // doc.main.addEventListener("click", (e)=>{
+  //   // console.log(e);
+  //   if(e.target.textContent==="Delete"){
+  //     // console.log("you clicked the delete button!");
+  //     // console.log(e.path[1]);//whole container
+  //     const wholeContainer= e.path[1];
+  //     // console.log(wholeContainer.getAttribute('id'));
+  //     const wholeContainerIndex = wholeContainer.getAttribute("id");
+  //     console.log(wholeContainerIndex);
+  //     lists.totalList.spice((wholeContainerIndex-1),1);
+  //     console.log(lists.totalList);
+  //   }
+
+  // });
+
+
   // form.closeBtn.addEventListener("click", fxn.closePopup);
 
   // form.forTask.addEventListener("submit", (e) => {

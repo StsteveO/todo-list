@@ -103,7 +103,7 @@ const lists = (() => {
         taskContainer.classList.add("container-low-priority");
       }
     }
-    //put everything above here
+    //end of loop
     fxn.closePopup();
   });
 

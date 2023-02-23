@@ -111,15 +111,32 @@ const lists = (() => {
     if (e.target.textContent === "Delete") {
       const wholeContainer = e.path[1]; //same as taskContainer
       // console.log((e.path[1]).getAttribute("id")); // in DOM
-      const indexPosition= totalList.findIndex(matching);
+      const indexPosition = totalList.findIndex(matching);
 
-      function matching(index){
-        return(index.taskTitle === e.path[1].getAttribute("id"));
+      function matching(index) {
+        return index.taskTitle === e.path[1].getAttribute("id");
       }
 
-      totalList.splice((indexPosition),1);
+      totalList.splice(indexPosition, 1);
       wholeContainer.remove();
     }
+  });
+
+  doc.nav.addEventListener("click", (e) => {
+    // console.log(e);
+    // console.log(e.path[0].textContent);
+    const btnText = e.path[0].textContent;
+    // console.log(btnText);
+    if (btnText === "High Priority") {
+      console.log(totalList);
+      const itemContainers=document.querySelectorAll(".task-container");
+      console.log(itemContainers);
+    } else if (btnText === "Medium Priority") {
+    } else if (btnText === "Low Priority") {
+    } else{
+      return;
+    };
+  
   });
 
   // end of lists

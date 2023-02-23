@@ -123,20 +123,53 @@ const lists = (() => {
   });
 
   doc.nav.addEventListener("click", (e) => {
-    // console.log(e);
-    // console.log(e.path[0].textContent);
     const btnText = e.path[0].textContent;
-    // console.log(btnText);
+    const itemContainers = document.querySelectorAll(".task-container");
+
     if (btnText === "High Priority") {
-      console.log(totalList);
-      const itemContainers=document.querySelectorAll(".task-container");
-      console.log(itemContainers);
-    } else if (btnText === "Medium Priority") {
-    } else if (btnText === "Low Priority") {
-    } else{
-      return;
-    };
-  
+      for (let i = 0; i < itemContainers.length; i++) {
+        if (itemContainers[i].children[2].textContent !== "High Priority") {
+          itemContainers[i].classList.add("hide");
+        }else if (itemContainers[i].children[2].textContent === "High Priority") {
+          itemContainers[i].classList.remove("hide");
+        }
+      };
+
+    }else if (btnText === "Medium Priority"){
+      for (let i = 0; i < itemContainers.length; i++) {
+        if (itemContainers[i].children[2].textContent !== "Medium Priority") {
+          itemContainers[i].classList.add("hide");
+        }else if (itemContainers[i].children[2].textContent === "Medium Priority") {
+          itemContainers[i].classList.remove("hide");
+        }
+      };
+
+    }else if (btnText === "Low Priority"){
+      for (let i = 0; i < itemContainers.length; i++) {
+        if (itemContainers[i].children[2].textContent !== "Low Priority") {
+          itemContainers[i].classList.add("hide");
+        }else if (itemContainers[i].children[2].textContent === "Low Priority") {
+          itemContainers[i].classList.remove("hide");
+        }
+      };
+
+    }else if (btnText === "No Priority"){
+      for (let i = 0; i < itemContainers.length; i++) {
+        if (itemContainers[i].children[2].textContent !== "No Priority") {
+          itemContainers[i].classList.add("hide");
+        }else if (itemContainers[i].children[2].textContent === "No Priority") {
+          itemContainers[i].classList.remove("hide");
+        }
+      };
+
+    }else if (btnText === "Full List"){
+      for (let i = 0; i < itemContainers.length; i++) {
+        if (itemContainers[i].children[2].textContent !== "Dummy Text") {
+          itemContainers[i].classList.remove("hide");
+        }
+      };
+    }
+    // This is still nav click events, add New Project stuff here.
   });
 
   // end of lists

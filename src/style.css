@@ -160,14 +160,14 @@ main {
 .task-container{
   height: auto;
   background-color: skyblue;
-  border: 2px solid blue;
+  border: 2px solid black;
   padding: 1rem;
   margin: 1rem;
   border-radius: 10px;
   transition: 0.25s;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: .5rem;
   transition: 200ms;
 }
@@ -200,6 +200,11 @@ main {
 }
 .container-date-difference{
   font-size: medium;
+}
+.sub-tasks-btn{
+  font-size: medium;
+  border-radius: 10px;
+  cursor: pointer;
 }
 .container-complete-btn{
   font-size: medium;

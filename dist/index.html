@@ -7,7 +7,7 @@
     <title>To-do List</title>
   <script defer src="main.js"></script></head>
   <body>
-    <div class="form">
+    <div class="form default">
         <form action="" method="post">
           <div>(*= Required)</div>
             <fieldset>
@@ -33,6 +33,38 @@
                 <br>
                 <input type="radio" name="priority" id="high_priority" value="high_priority">
                 <label for="high_priority">High Priority</label>
+            </fieldset>
+            <button type="submit" id="submit-btn">Submit</button>
+            <!-- <button class="close-btn">Close</button> -->
+        </form>
+    </div>
+
+    <div class="form project">
+        <form action="" method="post">
+          <div>(*= Required)</div>
+            <fieldset>
+                <legend>Information</legend>
+                <label for="task">Project Name*</label>
+                <br>
+                <input type="text" name="task" id="task" required placeholder="Remodel the bathroom">
+                <br>
+                <label for="due_date">Due Date</label>
+                <br>
+                <input type="date" name="due_date" id="due_date">
+            </fieldset>
+            <fieldset>
+                <legend>Priority Level*</legend>
+                <input type="radio" name="priority_project" id="no_priority_project" value="no_priority_project" checked>
+                <label for="no_priority_project">No Priority</label>
+                <br>
+                <input type="radio" name="priority_project" id="low_priority_project" value="low_priority_project">
+                <label for="low_priority_project">Low Priority</label>
+                <br>
+                <input type="radio" name="priority_project" id="med_priority_project" value="med_priority_project">
+                <label for="med_priority_project">Medium Priority</label>
+                <br>
+                <input type="radio" name="priority_project" id="high_priority_project" value="high_priority_project">
+                <label for="high_priority_project">High Priority</label>
             </fieldset>
             <button type="submit" id="submit-btn">Submit</button>
             <!-- <button class="close-btn">Close</button> -->

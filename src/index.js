@@ -107,6 +107,112 @@ const lists = (() => {
     fxn.closePopup();
   });
 
+    form.forTaskProject.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const taskTitleValue = () => {
+        return e.path[0][1].value;
+      };
+
+      const priorityValue = () => {
+        const priority = document.getElementsByName("priority_project");
+        if (priority[0].checked === true) {
+          return "No Priority";
+        } else if (priority[1].checked === true) {
+          return "Low Priority";
+        } else if (priority[2].checked === true) {
+          return "Medium Priority";
+        } else if (priority[3].checked === true) {
+          return "High Priority";
+        }
+      };
+
+      const dueDateValue = () => {
+        if (e.path[0][2].value === "" || e.path[0][2].value === undefined) {
+          return "No Date Given";
+        } else {
+          const updatedDate = addDays(new Date(e.path[0][2].value), 1);
+          return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
+        }
+      };
+
+      const dateDifference = () => {
+        if (dueDateValue() === "No Date Given") {
+          return;
+        } else {
+          return formatDistanceToNow(new Date(e.path[0][2].value), {
+            addSuffix: true,
+          });
+        }
+      };
+
+      const newTask = new Todo(
+        taskTitleValue(),
+        priorityValue(),
+        dueDateValue()
+      ); //creates new object using values from form filled out
+      const addReminderToTotalListArr = (() => {
+        totalList.push(newTask);
+      })();
+
+      for (let i = totalList.length - 1; i < totalList.length; i++) {
+        //want to loop over everything and only add last object in array //format each object in an array
+        const taskContainer = document.createElement("div");
+        taskContainer.classList.add("task-container");
+        doc.main.appendChild(taskContainer);
+
+        const containerTitle = document.createElement("div");
+        containerTitle.classList.add("container-title");
+        containerTitle.textContent = `PROJECT: ${newTask.taskTitle}`;
+        taskContainer.appendChild(containerTitle);
+
+        taskContainer.setAttribute("id", `${containerTitle.textContent}`);
+
+        const containerDueDate = document.createElement("div");
+        containerDueDate.classList.add("container-due-date");
+        containerDueDate.textContent = newTask.dueDate;
+        taskContainer.appendChild(containerDueDate);
+
+        const containerPriority = document.createElement("div");
+        containerPriority.classList.add("container-priority");
+        containerPriority.textContent = newTask.priorityLevel;
+        taskContainer.appendChild(containerPriority);
+
+        const containerDateDifference = document.createElement("div");
+        containerDateDifference.classList.add("container-date-difference");
+        containerDateDifference.textContent = dateDifference();
+        taskContainer.appendChild(containerDateDifference);
+
+        const subTasks= document.createElement("button");
+        subTasks.classList.add("sub-tasks-btn");
+        subTasks.textContent= "Add Sub-Tasks:";
+        taskContainer.appendChild(subTasks);
+
+        const placeHolder= document.createElement("div");
+        taskContainer.appendChild(placeHolder);
+
+        const containerCompleteBtn = document.createElement("button");
+        containerCompleteBtn.classList.add("container-complete-btn");
+        containerCompleteBtn.textContent = "Completed";
+        taskContainer.appendChild(containerCompleteBtn);
+
+        const containerDeleteBtn = document.createElement("button");
+        containerDeleteBtn.classList.add("container-delete-btn");
+        containerDeleteBtn.textContent = "Delete";
+        taskContainer.appendChild(containerDeleteBtn);
+
+        if (containerPriority.textContent === "High Priority") {
+          taskContainer.classList.add("container-high-priority");
+        } else if (containerPriority.textContent === "Medium Priority") {
+          taskContainer.classList.add("container-med-priority");
+        } else if (containerPriority.textContent === "Low Priority") {
+          taskContainer.classList.add("container-low-priority");
+        }
+      }
+      //end of loop for project list
+      fxn.closePopup();
+    });
+
   doc.main.addEventListener("click", (e) => {
     if (e.target.textContent === "Delete") {
       const wholeContainer = e.path[1]; //same as taskContainer
@@ -182,4 +288,5 @@ const lists = (() => {
 const logic = (() => {
   doc.headerBtn.addEventListener("click", fxn.showPopup);
   form.overlay.addEventListener("click", fxn.closePopup);
+  doc.addProject.addEventListener("click", fxn.showPopupProject);
 })();

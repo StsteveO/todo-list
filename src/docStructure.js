@@ -52,7 +52,7 @@ const doc = (() => {
   nav.appendChild(addProject);
   main.appendChild(mainFullList);
 
-  return { headerBtn, main, nav };
+  return { headerBtn, main, nav, addProject };
 })();
 
 export default doc;

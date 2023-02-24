@@ -214,7 +214,7 @@ main {
   transition: 200ms;
 }
 .subtasks-read-out:hover{
-  transform: scale(1.02);
+  transform: scale(1.04);
   transition: 200ms;
 }
 .clicked{

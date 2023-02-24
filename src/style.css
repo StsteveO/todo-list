@@ -214,13 +214,16 @@ main {
   transition: 200ms;
 }
 .subtasks-read-out:hover{
-  transform: scale(1.05);
+  transform: scale(1.02);
   transition: 200ms;
 }
-.subtasks-read-out.clicked{
+.clicked{
   text-decoration: line-through;
   text-decoration-thickness: .25rem;
   transition: 200ms;
+}
+.reverse-clicked{
+  text-decoration: none;
 }
 .container-complete-btn{
   font-size: medium;

@@ -268,6 +268,16 @@ const lists = (() => {
     }
   });
 
+  doc.main.addEventListener("click", (e) => {
+    if (e.target.textContent === "Completed") {
+      const wholeContainer = e.path[1]; //same as taskContainer
+
+      for (let i = 0; i < wholeContainer.children.length-1; i++) {
+        wholeContainer.children[i].classList.add("clicked");
+      };
+      }
+  });
+
   doc.nav.addEventListener("click", (e) => {
     const btnText = e.path[0].textContent;
     const itemContainers = document.querySelectorAll(".task-container");

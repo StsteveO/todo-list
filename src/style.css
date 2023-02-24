@@ -219,6 +219,8 @@ main {
 }
 .subtasks-read-out.clicked{
   text-decoration: line-through;
+  text-decoration-thickness: .25rem;
+  transition: 200ms;
 }
 .container-complete-btn{
   font-size: medium;

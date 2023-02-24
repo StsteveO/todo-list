@@ -11,6 +11,7 @@ const fxn = (() => {
       form.overlay.classList.remove("show");
       form.forTask.classList.remove("show");
       form.forTaskProject.classList.remove("show");
+      form.forTaskProjectSubtasks.classList.remove("show");
     };
 
     const showPopupProject=()=>{
@@ -18,7 +19,12 @@ const fxn = (() => {
       form.overlay.classList.add("show");
     };
 
-    return { showPopup, closePopup, showPopupProject };
+    const showPopupProjectSubtasks=()=>{
+      form.overlay.classList.add("show");
+      form.forTaskProjectSubtasks.classList.add("show");
+    };
+
+    return { showPopup, closePopup, showPopupProject, showPopupProjectSubtasks };
 })();
 
 export default fxn;

@@ -167,7 +167,8 @@ main {
   transition: 0.25s;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  /* grid-template-rows: 1fr 1fr 1fr 1fr; */
+  grid-template-rows: auto auto auto auto;
   gap: .5rem;
   transition: 200ms;
 }
@@ -205,6 +206,19 @@ main {
   font-size: medium;
   border-radius: 10px;
   cursor: pointer;
+  height: 3rem;
+}
+.subtasks-read-out{
+  border-bottom: 2px solid black;
+  cursor: pointer;
+  transition: 200ms;
+}
+.subtasks-read-out:hover{
+  transform: scale(1.05);
+  transition: 200ms;
+}
+.subtasks-read-out.clicked{
+  text-decoration: line-through;
 }
 .container-complete-btn{
   font-size: medium;

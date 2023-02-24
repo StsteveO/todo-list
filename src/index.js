@@ -185,8 +185,48 @@ const lists = (() => {
 
         const subTasks= document.createElement("button");
         subTasks.classList.add("sub-tasks-btn");
-        subTasks.textContent= "Add Sub-Tasks:";
+        subTasks.textContent= "Add Sub-Tasks";
         taskContainer.appendChild(subTasks);
+
+        subTasks.addEventListener("click", fxn.showPopupProjectSubtasks);
+
+        form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const taskTitleValue = () => {
+          return e.path[0][1].value;
+        };
+
+        const dueDateValue = () => {
+          if (e.path[0][2].value === "" || e.path[0][2].value === undefined) {
+            return "No Date Given";
+          } else {
+            const updatedDate = addDays(new Date(e.path[0][2].value), 1);
+            return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
+          }
+        };
+
+        const dateDifference = () => {
+          if (dueDateValue() === "No Date Given") {
+            return "No Date Given";
+          } else {
+            return formatDistanceToNow(new Date(e.path[0][2].value), {
+              addSuffix: true,
+            });
+          }
+        };
+
+        const readOut= document.createElement("div");
+        readOut.classList.add("subtasks-read-out");
+        readOut.textContent= `${taskTitleValue()}` // ${dueDateValue()}, ${dateDifference()}.`;
+
+        readOut.addEventListener("click", (e)=>{
+          readOut.classList.toggle("clicked");});
+
+        placeHolder.appendChild(readOut);
+
+        fxn.closePopup();
+        });
 
         const placeHolder= document.createElement("div");
         taskContainer.appendChild(placeHolder);

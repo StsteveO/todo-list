@@ -436,7 +436,7 @@ const lists = (() => {
       const saveData = (() => {
         if (typeof Storage !== "undefined") {
           // Store
-          localStorage.setItem(JSON.stringify(newTask.taskTitle), JSON.stringify(importantData));
+          localStorage.setItem(JSON.stringify(`PROJECT: ${newTask.taskTitle}`), JSON.stringify(importantData));
           // Retrieve
           // localStorage.getItem("lastname");
         } else {
@@ -464,6 +464,8 @@ const lists = (() => {
 
       totalList.splice(indexPosition, 1);
       wholeContainer.remove();
+
+      localStorage.removeItem(`"${wholeContainer.getAttribute("id")}"`);
     }
   });
 
@@ -474,6 +476,8 @@ const lists = (() => {
       for (let i = 0; i < wholeContainer.children.length-1; i++) {
         wholeContainer.children[i].classList.add("clicked");
       };
+
+      localStorage.removeItem(`"${wholeContainer.getAttribute("id")}"`);
       }
   });
 

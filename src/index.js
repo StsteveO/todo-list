@@ -13,6 +13,103 @@ import {
 
 const lists = (() => {
   const totalList = []; //array which will go on the page
+
+  const saveData = (() => {
+    if (typeof Storage !== "undefined") {
+      // Store
+      // Retrieve
+      // localStorage.getItem("lastname");
+      for (let i = 0; i < localStorage.length; i++) {
+        console.log(JSON.parse(localStorage.getItem(localStorage.key(i)))); //object
+        totalList.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+
+        const savedObj= (JSON.parse(localStorage.getItem(localStorage.key(i))));
+
+        const taskContainer = document.createElement("div");
+        taskContainer.classList.add("task-container");
+        doc.main.appendChild(taskContainer);
+
+        const containerTitle = document.createElement("div");
+        containerTitle.classList.add("container-title");
+        containerTitle.textContent = savedObj.title;
+        taskContainer.appendChild(containerTitle);
+
+        taskContainer.setAttribute("id", `${containerTitle.textContent}`);
+
+        const containerDueDate = document.createElement("div");
+        containerDueDate.classList.add("container-due-date");
+        containerDueDate.textContent = savedObj.rawDate;
+        taskContainer.appendChild(containerDueDate);
+
+        const containerPriority = document.createElement("div");
+        containerPriority.classList.add("container-priority");
+        containerPriority.textContent = savedObj.priorityLevel;
+        taskContainer.appendChild(containerPriority);
+
+        const dueDateValue = () => {
+          if (savedObj.rawDate === "" || savedObj.rawDate === undefined) {
+            return "No Date Given";
+          } else {
+            const updatedDate = addDays(new Date(savedObj.rawDate), 1);
+            return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
+          }
+          };
+
+        const dateDifference = () => {
+          if (dueDateValue() === "No Date Given") {
+            return;
+          } else {
+            return formatDistanceToNow(new Date(savedObj.rawDate), {
+              addSuffix: true,
+            });
+          }
+          };
+
+        const containerDateDifference = document.createElement("div");
+        containerDateDifference.classList.add("container-date-difference");
+        containerDateDifference.textContent = savedObj.dateDifference;
+        taskContainer.appendChild(containerDateDifference);
+
+        if(savedObj.project===true){
+          const subTasks= document.createElement("button");
+          subTasks.classList.add("sub-tasks-btn");
+          subTasks.textContent= "Add Sub-Tasks";
+          taskContainer.appendChild(subTasks);
+
+          const placeHolder= document.createElement("div");
+          taskContainer.appendChild(placeHolder);
+        };
+
+        const containerCompleteBtn = document.createElement("button");
+        containerCompleteBtn.classList.add("container-complete-btn");
+        containerCompleteBtn.textContent = "Completed";
+        taskContainer.appendChild(containerCompleteBtn);
+
+        const containerDeleteBtn = document.createElement("button");
+        containerDeleteBtn.classList.add("container-delete-btn");
+        containerDeleteBtn.textContent = "Delete";
+        taskContainer.appendChild(containerDeleteBtn);
+
+        if (containerPriority.textContent === "High Priority") {
+          taskContainer.classList.add("container-high-priority");
+        } else if (containerPriority.textContent === "Medium Priority") {
+          taskContainer.classList.add("container-med-priority");
+        } else if (containerPriority.textContent === "Low Priority") {
+          taskContainer.classList.add("container-low-priority");
+        }
+        
+      }
+
+    } else {
+      const sorryText = document.createElement("div");
+      sorryText.textContent =
+        "Sorry, your browser does not support storage of previous tasks.";
+      document.main.appendChild(sorryText);
+    }
+  })();
+
+  console.log(totalList);
+
   form.forTask.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -102,7 +199,37 @@ const lists = (() => {
       } else if (containerPriority.textContent === "Low Priority") {
         taskContainer.classList.add("container-low-priority");
       }
+
+      //start delete
+      // console.log(taskContainer); //DOM version of a task icon
+      console.log(newTask);
+      // console.log(JSON.stringify(taskContainer)); //empty object
+      console.log(JSON.stringify(newTask));
+
+      const importantData= {
+        title: newTask.taskTitle,
+        rawDate: dueDateValue(),
+        priorityLevel: newTask.priorityLevel,
+        dateDifference: dateDifference()
+      };
+
+      const saveData = (() => {
+        if (typeof Storage !== "undefined") {
+          // Store
+          localStorage.setItem(JSON.stringify(newTask.taskTitle), JSON.stringify(importantData));
+          // Retrieve
+          // localStorage.getItem("lastname");
+        } else {
+          const sorryText = document.createElement("div");
+          sorryText.textContent =
+            "Sorry, your browser does not support storage of previous tasks.";
+          document.main.appendChild(sorryText);
+        }
+      })();
+
+      //end delete
     }
+    
     //end of loop for default list
     fxn.closePopup();
   });
@@ -165,6 +292,7 @@ const lists = (() => {
         containerTitle.classList.add("container-title");
         containerTitle.textContent = `PROJECT: ${newTask.taskTitle}`;
         taskContainer.appendChild(containerTitle);
+        containerTitle.setAttribute("id", "project");
 
         taskContainer.setAttribute("id", `${containerTitle.textContent}`);
 
@@ -248,6 +376,30 @@ const lists = (() => {
         } else if (containerPriority.textContent === "Low Priority") {
           taskContainer.classList.add("container-low-priority");
         }
+
+        const importantData= {
+        title: containerTitle.textContent,
+        rawDate: dueDateValue(),
+        priorityLevel: newTask.priorityLevel,
+        dateDifference: dateDifference(),
+        subTasks: document.querySelectorAll(".subtasks-read-out"),
+        project: true
+      };
+
+      const saveData = (() => {
+        if (typeof Storage !== "undefined") {
+          // Store
+          localStorage.setItem(JSON.stringify(newTask.taskTitle), JSON.stringify(importantData));
+          // Retrieve
+          // localStorage.getItem("lastname");
+        } else {
+          const sorryText = document.createElement("div");
+          sorryText.textContent =
+            "Sorry, your browser does not support storage of previous tasks.";
+          document.main.appendChild(sorryText);
+        }
+      })();
+
       }
       //end of loop for project list
       fxn.closePopup();
@@ -339,4 +491,17 @@ const logic = (() => {
   doc.headerBtn.addEventListener("click", fxn.showPopup);
   form.overlay.addEventListener("click", fxn.closePopup);
   doc.addProject.addEventListener("click", fxn.showPopupProject);
+})();
+
+const saveData=(()=>{
+  if (typeof(Storage) !== "undefined") {
+  // Store
+  // localStorage.setItem("lastname", "Smith");
+  // Retrieve
+  // localStorage.getItem("lastname");
+} else {
+  const sorryText=document.createElement("div"); 
+  sorryText.textContent= "Sorry, your browser does not support storage of previous tasks.";
+  document.main.appendChild(sorryText);
+}
 })();

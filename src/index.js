@@ -25,6 +25,10 @@ const lists = (() => {
 
         const savedObj= (JSON.parse(localStorage.getItem(localStorage.key(i))));
 
+        if (savedObj.subtaskPresent===true){
+          continue;
+        };
+
         const taskContainer = document.createElement("div");
         taskContainer.classList.add("task-container");
         doc.main.appendChild(taskContainer);
@@ -400,6 +404,30 @@ const lists = (() => {
 
         placeHolder.appendChild(readOut);
 
+        const subtaskData = {
+          overallTask: containerTitle.textContent,
+          subtaskTitle: readOut.textContent,
+          subtaskPresent: true,
+          keyTitle: `subtask: ${readOut.textContent}`,
+        };
+
+        const saveData = (() => {
+          if (typeof Storage !== "undefined") {
+            // Store
+            localStorage.setItem(
+              JSON.stringify(`subtask: ${readOut.textContent}`),
+              JSON.stringify(subtaskData)
+            );
+            // Retrieve
+            // localStorage.getItem("lastname");
+          } else {
+            const sorryText = document.createElement("div");
+            sorryText.textContent =
+              "Sorry, your browser does not support storage of previous tasks.";
+            document.main.appendChild(sorryText);
+          }
+        })();
+
         fxn.closePopup();
         });
 
@@ -432,7 +460,7 @@ const lists = (() => {
         // subTasks: document.querySelectorAll(".subtasks-read-out"),
         subTasks: document.querySelectorAll(".subtasks-read-out"),
         project: true
-      };
+        };
 
       const saveData = (() => {
         if (typeof Storage !== "undefined") {

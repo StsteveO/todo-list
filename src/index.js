@@ -429,6 +429,7 @@ const lists = (() => {
         rawDate: dueDateValue(),
         priorityLevel: newTask.priorityLevel,
         dateDifference: dateDifference(),
+        // subTasks: document.querySelectorAll(".subtasks-read-out"),
         subTasks: document.querySelectorAll(".subtasks-read-out"),
         project: true
       };

@@ -14,13 +14,43 @@ import {
 const lists = (() => {
   const totalList = []; //array which will go on the page
 
+  // const saveSubtaskData = (() => {
+  //   if (typeof Storage !== "undefined") {
+  //     // Store
+  //     // Retrieve
+  //     for (let i = 0; i < localStorage.length; i++) {
+  //       if(((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle)!== undefined){
+  //       console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))));
+  //       const project= (((JSON.parse(localStorage.getItem(localStorage.key(i)))).overallTask));
+  //       console.log(project); //same as container id
+  //       const projectSource= document.querySelector(`#${project}`);
+  //       console.log(projectSource);
+  //       }
+  //       };
+        
+  //   } else {
+  //     const sorryText = document.createElement("div");
+  //     sorryText.textContent =
+  //       "Sorry, your browser does not support storage of previous tasks.";
+  //     document.main.appendChild(sorryText);
+  //   }
+  // })();
+
+  // for (let i = 0; i < localStorage.length; i++) {
+    // if(((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle)!== undefined){
+  //   console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))));
+  //   const project= document.querySelector(`#${((JSON.parse(localStorage.getItem(localStorage.key(i)))).overallTask)}`);
+  //   console.log(project);
+  //   }
+  // };
+
   const saveData = (() => {
     if (typeof Storage !== "undefined") {
       // Store
       // Retrieve
       // localStorage.getItem("lastname");
       for (let i = 0; i < localStorage.length; i++) {
-        console.log(JSON.parse(localStorage.getItem(localStorage.key(i)))); //object
+        // console.log(JSON.parse(localStorage.getItem(localStorage.key(i)))); //object
         totalList.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
 
         const savedObj= (JSON.parse(localStorage.getItem(localStorage.key(i))));
@@ -81,7 +111,26 @@ const lists = (() => {
           taskContainer.appendChild(subTasks);
 
           const placeHolder= document.createElement("div");
+          const newTitleVersion= (savedObj.title).replace(/ /g, "");
+          placeHolder.classList.add(newTitleVersion);
           taskContainer.appendChild(placeHolder);
+
+          for (let i = 0; i < localStorage.length; i++) {
+            if((((JSON.parse(localStorage.getItem(localStorage.key(i)))).classForTitle)!==undefined)
+            && (((JSON.parse(localStorage.getItem(localStorage.key(i)))).subtaskTitle)!==undefined)
+            && ((newTitleVersion)===((JSON.parse(localStorage.getItem(localStorage.key(i)))).classForTitle))){
+            console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).classForTitle);
+            console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).subtaskTitle);
+            console.log(newTitleVersion);
+
+            const subTaskItem= document.createElement("div");
+            subTaskItem.classList.add("subtasks-read-out");
+            subTaskItem.textContent= ((JSON.parse(localStorage.getItem(localStorage.key(i)))).subtaskTitle);
+            placeHolder.appendChild(subTaskItem);
+            };
+
+            
+            };
 
           subTasks.addEventListener("click", fxn.showPopupProjectSubtasks);
 
@@ -131,6 +180,12 @@ const lists = (() => {
           });
         };
 
+        //add stuff here for sublists
+        // for (let i = 0; i < localStorage.length; i++) {
+        //   console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle);
+        // };
+
+
         const containerCompleteBtn = document.createElement("button");
         containerCompleteBtn.classList.add("container-complete-btn");
         containerCompleteBtn.textContent = "Completed";
@@ -150,6 +205,7 @@ const lists = (() => {
         }
         
       }
+      //out of the loop
 
     } else {
       const sorryText = document.createElement("div");
@@ -159,7 +215,34 @@ const lists = (() => {
     }
   })();
 
-  console.log(totalList);
+  const saveSubtaskData = (() => {
+    if (typeof Storage !== "undefined") {
+      // Store
+      // Retrieve
+      for (let i = 0; i < localStorage.length; i++) {
+        if(((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle)!== undefined){
+        // console.log((JSON.parse(localStorage.getItem(localStorage.key(i))))); //subtask object
+        const project= (((JSON.parse(localStorage.getItem(localStorage.key(i)))).overallTask));
+        const overallProjectClass= (project.replace(/ /g, "")); //same as title and container id
+        // const projectSource= document.querySelector(`#${project}`);
+        // console.log(projectSource);
+        // const projectSource = document.querySelector(`.${overallProjectClass}`);
+        // console.log(projectSource);
+        // const completeBtn = document.querySelector(".container-complete-btn");
+        // console.log(completeBtn);
+        // console.log(completeBtn.previousElementSibling);  
+        }
+        };
+        
+    } else {
+      const sorryText = document.createElement("div");
+      sorryText.textContent =
+        "Sorry, your browser does not support storage of previous tasks.";
+      document.main.appendChild(sorryText);
+    }
+  })();
+
+  // console.log(totalList);
 
   form.forTask.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -255,7 +338,7 @@ const lists = (() => {
       // console.log(taskContainer); //DOM version of a task icon
       console.log(newTask);
       // console.log(JSON.stringify(taskContainer)); //empty object
-      console.log(JSON.stringify(newTask));
+      // console.log(JSON.stringify(newTask));
 
       const importantData= {
         title: newTask.taskTitle,
@@ -406,6 +489,7 @@ const lists = (() => {
 
         const subtaskData = {
           overallTask: containerTitle.textContent,
+          classForTitle: containerTitle.textContent.replace(/ /g, ""),
           subtaskTitle: readOut.textContent,
           subtaskPresent: true,
           keyTitle: `subtask: ${readOut.textContent}`,
@@ -452,14 +536,15 @@ const lists = (() => {
           taskContainer.classList.add("container-low-priority");
         }
 
-        const importantData= {
-        title: containerTitle.textContent,
-        rawDate: dueDateValue(),
-        priorityLevel: newTask.priorityLevel,
-        dateDifference: dateDifference(),
-        // subTasks: document.querySelectorAll(".subtasks-read-out"),
-        subTasks: document.querySelectorAll(".subtasks-read-out"),
-        project: true
+        const importantData = {
+          title: containerTitle.textContent,
+          classForTitle: containerTitle.textContent.replace(/ /g, ""),
+          rawDate: dueDateValue(),
+          priorityLevel: newTask.priorityLevel,
+          dateDifference: dateDifference(),
+          // subTasks: document.querySelectorAll(".subtasks-read-out"),
+          subTasks: document.querySelectorAll(".subtasks-read-out"),
+          project: true,
         };
 
       const saveData = (() => {

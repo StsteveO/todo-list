@@ -119,65 +119,102 @@ const lists = (() => {
             if((((JSON.parse(localStorage.getItem(localStorage.key(i)))).classForTitle)!==undefined)
             && (((JSON.parse(localStorage.getItem(localStorage.key(i)))).subtaskTitle)!==undefined)
             && ((newTitleVersion)===((JSON.parse(localStorage.getItem(localStorage.key(i)))).classForTitle))){
-            console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).classForTitle);
-            console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).subtaskTitle);
-            console.log(newTitleVersion);
+            // console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).classForTitle);
+            // console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).subtaskTitle);
+            // console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle);
+
+            // console.log(newTitleVersion);
 
             const subTaskItem= document.createElement("div");
             subTaskItem.classList.add("subtasks-read-out");
             subTaskItem.textContent= ((JSON.parse(localStorage.getItem(localStorage.key(i)))).subtaskTitle);
+            
+            subTaskItem.addEventListener("click", (e)=>{
+              subTaskItem.classList.add("clicked");
+              localStorage.removeItem(`"${((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle)}"`);
+              window.location.reload();
+            });
+
             placeHolder.appendChild(subTaskItem);
             };
 
             
             };
 
-          subTasks.addEventListener("click", fxn.showPopupProjectSubtasks);
+          // subTasks.addEventListener("click", fxn.showPopupProjectSubtasks);
 
-          form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
-            e.preventDefault();
+          // form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
+          //   e.preventDefault();
 
-            const taskTitleValue = () => {
-              return e.path[0][1].value;
-            };
+          //   const taskTitleValue = () => {
+          //     return e.path[0][1].value;
+          //   };
 
-            const dueDateValue = () => {
-              if (
-                e.path[0][2].value === "" ||
-                e.path[0][2].value === undefined
-              ) {
-                return "No Date Given";
-              } else {
-                const updatedDate = addDays(new Date(e.path[0][2].value), 1);
-                return `Due date: ${format(
-                  new Date(updatedDate),
-                  "MMMM. do. yyyy"
-                )}`;
-              }
-            };
+          //   const dueDateValue = () => {
+          //     if (
+          //       e.path[0][2].value === "" ||
+          //       e.path[0][2].value === undefined
+          //     ) {
+          //       return "No Date Given";
+          //     } else {
+          //       const updatedDate = addDays(new Date(e.path[0][2].value), 1);
+          //       return `Due date: ${format(
+          //         new Date(updatedDate),
+          //         "MMMM. do. yyyy"
+          //       )}`;
+          //     }
+          //   };
 
-            const dateDifference = () => {
-              if (dueDateValue() === "No Date Given") {
-                return "No Date Given";
-              } else {
-                return formatDistanceToNow(new Date(e.path[0][2].value), {
-                  addSuffix: true,
-                });
-              }
-            };
+          //   const dateDifference = () => {
+          //     if (dueDateValue() === "No Date Given") {
+          //       return "No Date Given";
+          //     } else {
+          //       return formatDistanceToNow(new Date(e.path[0][2].value), {
+          //         addSuffix: true,
+          //       });
+          //     }
+          //   };
 
-            const readOut = document.createElement("div");
-            readOut.classList.add("subtasks-read-out");
-            readOut.textContent = `${taskTitleValue()}`; // ${dueDateValue()}, ${dateDifference()}.`;
+          //   const readOut = document.createElement("div");
+          //   readOut.classList.add("subtasks-read-out");
+          //   readOut.textContent = `${taskTitleValue()}`; // ${dueDateValue()}, ${dateDifference()}.`;
 
-            readOut.addEventListener("click", (e) => {
-              readOut.classList.toggle("clicked");
-            });
+          //   readOut.addEventListener("click", (e) => {
+          //     readOut.classList.add("clicked");
+          //     window.location.reload();
+          //   });
 
-            placeHolder.appendChild(readOut);
+          //   placeHolder.appendChild(readOut);
 
-            fxn.closePopup();
-          });
+          //   const subtaskData = {
+          //     overallTask: savedObj.title,
+          //     classForTitle: savedObj.title.replace(/ /g, ""),
+          //     subtaskTitle: readOut.textContent,
+          //     subtaskPresent: true,
+          //     keyTitle: `subtask: ${readOut.textContent}`,
+          //   };
+
+          //   const saveData = (() => {
+          //     if (typeof Storage !== "undefined") {
+          //       // Store
+          //       localStorage.setItem(
+          //         JSON.stringify(`subtask: ${readOut.textContent}`),
+          //         JSON.stringify(subtaskData)
+          //       );
+          //       // Retrieve
+          //       // localStorage.getItem("lastname");
+          //     } else {
+          //       const sorryText = document.createElement("div");
+          //       sorryText.textContent =
+          //         "Sorry, your browser does not support storage of previous tasks.";
+          //       document.main.appendChild(sorryText);
+          //     }
+          //   })();
+
+          //   window.location.reload();
+
+          //   fxn.closePopup();
+          // });
         };
 
         //add stuff here for sublists
@@ -450,73 +487,99 @@ const lists = (() => {
         subTasks.textContent= "Add Sub-Tasks";
         taskContainer.appendChild(subTasks);
 
-        subTasks.addEventListener("click", fxn.showPopupProjectSubtasks);
-
-        form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const taskTitleValue = () => {
-          return e.path[0][1].value;
-        };
-
-        const dueDateValue = () => {
-          if (e.path[0][2].value === "" || e.path[0][2].value === undefined) {
-            return "No Date Given";
-          } else {
-            const updatedDate = addDays(new Date(e.path[0][2].value), 1);
-            return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
-          }
-        };
-
-        const dateDifference = () => {
-          if (dueDateValue() === "No Date Given") {
-            return "No Date Given";
-          } else {
-            return formatDistanceToNow(new Date(e.path[0][2].value), {
-              addSuffix: true,
-            });
-          }
-        };
-
-        const readOut= document.createElement("div");
-        readOut.classList.add("subtasks-read-out");
-        readOut.textContent= `${taskTitleValue()}` // ${dueDateValue()}, ${dateDifference()}.`;
-
-        readOut.addEventListener("click", (e)=>{
-          readOut.classList.toggle("clicked");});
-
-        placeHolder.appendChild(readOut);
-
-        const subtaskData = {
-          overallTask: containerTitle.textContent,
-          classForTitle: containerTitle.textContent.replace(/ /g, ""),
-          subtaskTitle: readOut.textContent,
-          subtaskPresent: true,
-          keyTitle: `subtask: ${readOut.textContent}`,
-        };
-
-        const saveData = (() => {
-          if (typeof Storage !== "undefined") {
-            // Store
-            localStorage.setItem(
-              JSON.stringify(`subtask: ${readOut.textContent}`),
-              JSON.stringify(subtaskData)
-            );
-            // Retrieve
-            // localStorage.getItem("lastname");
-          } else {
-            const sorryText = document.createElement("div");
-            sorryText.textContent =
-              "Sorry, your browser does not support storage of previous tasks.";
-            document.main.appendChild(sorryText);
-          }
-        })();
-
-        fxn.closePopup();
-        });
-
-        const placeHolder= document.createElement("div");
+        const placeHolder = document.createElement("div");
         taskContainer.appendChild(placeHolder);
+
+        // subTasks.addEventListener("click", fxn.showPopupProjectSubtasks);
+
+        // form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
+        // e.preventDefault();
+
+        // // console.log(e);
+        // // console.log(e.path[2].childNodes);
+        // // // console.log(e.path[2].childNodes[`${e.path[2].childNodes.length-2}`].childNodes[2].childNodes[i].childNodes[0].textContent);
+
+        // // console.log(e.path[2].childNodes[11].childNodes[2].childNodes.length);
+        // // const mentForContainer=(e.path[2].childNodes[11].childNodes[2].childNodes[1].childNodes[0].textContent);
+        // // const currentContainer=(containerTitle.textContent);
+        
+
+
+
+
+        // const taskTitleValue = () => {
+        //   return e.path[0][1].value;
+        // };
+
+        // const dueDateValue = () => {
+        //   if (e.path[0][2].value === "" || e.path[0][2].value === undefined) {
+        //     return "No Date Given";
+        //   } else {
+        //     const updatedDate = addDays(new Date(e.path[0][2].value), 1);
+        //     return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
+        //   }
+        // };
+
+        // const dateDifference = () => {
+        //   if (dueDateValue() === "No Date Given") {
+        //     return "No Date Given";
+        //   } else {
+        //     return formatDistanceToNow(new Date(e.path[0][2].value), {
+        //       addSuffix: true,
+        //     });
+        //   }
+        // };
+
+        // // for (let i = 0; i < (e.path[2].childNodes[11].childNodes[2].childNodes.length); i++) {
+          
+        // // if((e.path[2].childNodes[11].childNodes[2].childNodes[1].childNodes[0].textContent)
+        // // ===(containerTitle.textContent)){
+
+        // const readOut= document.createElement("div");
+        // readOut.classList.add("subtasks-read-out");
+        // readOut.textContent= `${taskTitleValue()}` // ${dueDateValue()}, ${dateDifference()}.`;
+
+        // readOut.addEventListener("click", (e)=>{
+        //   readOut.classList.add("clicked");
+        //   window.location.reload();
+        // });
+
+        //   placeHolder.appendChild(readOut);
+        // // };
+        // // };
+
+        // const subtaskData = {
+        //   overallTask: containerTitle.textContent,
+        //   classForTitle: containerTitle.textContent.replace(/ /g, ""),
+        //   subtaskTitle: taskTitleValue(),
+        //   subtaskPresent: true,
+        //   keyTitle: `subtask: ${taskTitleValue()}`,
+        // };
+
+        // const saveData = (() => {
+        //   if (typeof Storage !== "undefined") {
+        //     // Store
+        //     localStorage.setItem(
+        //       JSON.stringify(`subtask: ${taskTitleValue()}`),
+        //       JSON.stringify(subtaskData)
+        //     );
+        //     // Retrieve
+        //     // localStorage.getItem("lastname");
+        //   } else {
+        //     const sorryText = document.createElement("div");
+        //     sorryText.textContent =
+        //       "Sorry, your browser does not support storage of previous tasks.";
+        //     document.main.appendChild(sorryText);
+        //   }
+        // })();
+
+        // window.location.reload();
+
+        // fxn.closePopup();
+        // });
+
+        // const placeHolder= document.createElement("div");
+        // taskContainer.appendChild(placeHolder);
 
         const containerCompleteBtn = document.createElement("button");
         containerCompleteBtn.classList.add("container-complete-btn");
@@ -563,6 +626,7 @@ const lists = (() => {
 
       }
       //end of loop for project list
+      window.location.reload();
       fxn.closePopup();
     });
 
@@ -580,6 +644,12 @@ const lists = (() => {
       wholeContainer.remove();
 
       localStorage.removeItem(`"${wholeContainer.getAttribute("id")}"`);
+
+      const subTaskList = e.path[1].children[5].childNodes;
+
+      for (let i = 0; i < subTaskList.length; i++) {
+        localStorage.removeItem(`"subtask: ${subTaskList[i].textContent}"`);
+      }
     }
   });
 
@@ -592,6 +662,16 @@ const lists = (() => {
       };
 
       localStorage.removeItem(`"${wholeContainer.getAttribute("id")}"`);
+      // console.log(e.path[1].children[5].childNodes);
+      const subTaskList = e.path[1].children[5].childNodes;
+      // console.log(subTaskList.length);
+      // console.log(subTaskList[1]);
+      // console.log(subTaskList[1].textContent);
+      for (let i = 0; i < subTaskList.length; i++) {
+        localStorage.removeItem(`"subtask: ${subTaskList[i].textContent}"`);
+      };
+
+      
       }
   });
 
@@ -657,6 +737,176 @@ const logic = (() => {
   form.overlay.addEventListener("click", fxn.closePopup);
   doc.addProject.addEventListener("click", fxn.showPopupProject);
 })();
+
+const subtaskBtnFxn=(()=>{
+
+  const subtaskBtns= document.querySelectorAll(".sub-tasks-btn");
+  subtaskBtns.forEach(btn=>btn.addEventListener("click", addToContainer));
+
+  const emptyArr=[];
+
+  function addToContainer(e) {
+    // console.log(e.path[1]); //overall div container in html form
+    const overallDiveContainerPlaceHolder = (e.path[1].childNodes[5]);
+    // console.log(e.path[1].childNodes[0].textContent); //div container title
+    const containerTitleName= (e.path[1].childNodes[0].textContent);
+    // console.log(e.path[1].childNodes[0].textContent.replace(/ /g, "")); //div container title no spaces
+    const containerTitleNameNoSpaces= (e.path[1].childNodes[0].textContent.replace(/ /g, ""));
+    // console.log(e.path[1].childNodes[5]);//readOut node
+
+    emptyArr[0] = overallDiveContainerPlaceHolder;
+    emptyArr[1]= containerTitleName;
+    emptyArr[2] = containerTitleNameNoSpaces;
+
+    fxn.showPopupProjectSubtasks();
+    form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
+      e.preventDefault();
+      // console.log("you submitted a form!");
+      console.log(e); //form information
+      // console.log(containerTitleName);
+      // console.log(containerTitleNameNoSpaces);
+      // console.log(e.path[0][1].value);//form filled in information
+      const formTitle = e.path[0][1].value;
+      emptyArr[3] = formTitle;
+      // console.log(emptyArr);
+
+      const grabOverallContainerPlaceHolder = emptyArr[0];
+      const containerTitle = emptyArr[1];
+      const classTitleNoSpaces = emptyArr[2];
+      const subTaskTitle = emptyArr[3];
+
+      console.log(grabOverallContainerPlaceHolder);
+      console.log(containerTitle);
+      console.log(subTaskTitle);
+
+      const readOut = document.createElement("div");
+        readOut.classList.add("subtasks-read-out");
+        readOut.textContent = subTaskTitle;
+
+        readOut.addEventListener("click", (e)=>{
+          readOut.classList.add("clicked");
+          window.location.reload();
+        });
+
+        grabOverallContainerPlaceHolder.appendChild(readOut);
+
+        const subtaskData = {
+          overallTask: containerTitle,
+          classForTitle: containerTitle.replace(/ /g, ""),
+          subtaskTitle: subTaskTitle,
+          subtaskPresent: true,
+          keyTitle: `subtask: ${subTaskTitle}`,
+        };
+
+        const saveData = (() => {
+          if (typeof Storage !== "undefined") {
+            // Store
+            localStorage.setItem(
+              JSON.stringify(`subtask: ${subTaskTitle}`),
+              JSON.stringify(subtaskData)
+            );
+            // Retrieve
+            // localStorage.getItem("lastname");
+          } else {
+            const sorryText = document.createElement("div");
+            sorryText.textContent =
+              "Sorry, your browser does not support storage of previous tasks.";
+            document.main.appendChild(sorryText);
+          }
+        })();
+
+      window.location.reload();
+      fxn.closePopup();
+    });
+
+
+
+    // console.log(`${e.path[1].childNodes[0].textContent} subtask is: ${formTitle}`);
+
+    // subTasks.addEventListener("click", fxn.showPopupProjectSubtasks);
+
+    //     form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
+    //     e.preventDefault();
+
+    //     // console.log(e);
+    //     // console.log(e.path[2].childNodes);
+    //     // // console.log(e.path[2].childNodes[`${e.path[2].childNodes.length-2}`].childNodes[2].childNodes[i].childNodes[0].textContent);
+
+    //     // console.log(e.path[2].childNodes[11].childNodes[2].childNodes.length);
+    //     // const mentForContainer=(e.path[2].childNodes[11].childNodes[2].childNodes[1].childNodes[0].textContent);
+    //     // const currentContainer=(containerTitle.textContent);
+
+    //     const taskTitleValue = () => {
+    //       return e.path[0][1].value;
+    //     };
+
+    //     const dueDateValue = () => {
+    //       if (e.path[0][2].value === "" || e.path[0][2].value === undefined) {
+    //         return "No Date Given";
+    //       } else {
+    //         const updatedDate = addDays(new Date(e.path[0][2].value), 1);
+    //         return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
+    //       }
+    //     };
+
+    //     const dateDifference = () => {
+    //       if (dueDateValue() === "No Date Given") {
+    //         return "No Date Given";
+    //       } else {
+    //         return formatDistanceToNow(new Date(e.path[0][2].value), {
+    //           addSuffix: true,
+    //         });
+    //       }
+    //     };
+
+    //     // for (let i = 0; i < (e.path[2].childNodes[11].childNodes[2].childNodes.length); i++) {
+
+    //     // if((e.path[2].childNodes[11].childNodes[2].childNodes[1].childNodes[0].textContent)
+    //     // ===(containerTitle.textContent)){
+
+    //     const readOut= document.createElement("div");
+    //     readOut.classList.add("subtasks-read-out");
+    //     readOut.textContent= `${taskTitleValue()}` // ${dueDateValue()}, ${dateDifference()}.`;
+
+    //     readOut.addEventListener("click", (e)=>{
+    //       readOut.classList.add("clicked");
+    //       window.location.reload();
+    //     });
+
+    //       placeHolder.appendChild(readOut);
+    //     // };
+    //     // };
+
+    //     const subtaskData = {
+    //       overallTask: containerTitle.textContent,
+    //       classForTitle: containerTitle.textContent.replace(/ /g, ""),
+    //       subtaskTitle: taskTitleValue(),
+    //       subtaskPresent: true,
+    //       keyTitle: `subtask: ${taskTitleValue()}`,
+    //     };
+
+    //     const saveData = (() => {
+    //       if (typeof Storage !== "undefined") {
+    //         // Store
+    //         localStorage.setItem(
+    //           JSON.stringify(`subtask: ${taskTitleValue()}`),
+    //           JSON.stringify(subtaskData)
+    //         );
+    //         // Retrieve
+    //         // localStorage.getItem("lastname");
+    //       } else {
+    //         const sorryText = document.createElement("div");
+    //         sorryText.textContent =
+    //           "Sorry, your browser does not support storage of previous tasks.";
+    //         document.main.appendChild(sorryText);
+    //       }
+    //     })();
+
+    //     window.location.reload();
+
+    //     fxn.closePopup();
+    // });
+  }})();
 
 const saveData=(()=>{
   if (typeof(Storage) !== "undefined") {

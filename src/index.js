@@ -12,48 +12,19 @@ import {
 } from "date-fns";
 
 const lists = (() => {
-  const totalList = []; //array which will go on the page
+  //array which will go on the page
+  const totalList = []; 
 
-  // const saveSubtaskData = (() => {
-  //   if (typeof Storage !== "undefined") {
-  //     // Store
-  //     // Retrieve
-  //     for (let i = 0; i < localStorage.length; i++) {
-  //       if(((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle)!== undefined){
-  //       console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))));
-  //       const project= (((JSON.parse(localStorage.getItem(localStorage.key(i)))).overallTask));
-  //       console.log(project); //same as container id
-  //       const projectSource= document.querySelector(`#${project}`);
-  //       console.log(projectSource);
-  //       }
-  //       };
-        
-  //   } else {
-  //     const sorryText = document.createElement("div");
-  //     sorryText.textContent =
-  //       "Sorry, your browser does not support storage of previous tasks.";
-  //     document.main.appendChild(sorryText);
-  //   }
-  // })();
-
-  // for (let i = 0; i < localStorage.length; i++) {
-    // if(((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle)!== undefined){
-  //   console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))));
-  //   const project= document.querySelector(`#${((JSON.parse(localStorage.getItem(localStorage.key(i)))).overallTask)}`);
-  //   console.log(project);
-  //   }
-  // };
-
+  //formatting saved data in local storage post reload
   const saveData = (() => {
     if (typeof Storage !== "undefined") {
       // Store
       // Retrieve
-      // localStorage.getItem("lastname");
       for (let i = 0; i < localStorage.length; i++) {
-        // console.log(JSON.parse(localStorage.getItem(localStorage.key(i)))); //object
-        totalList.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-
+        // loop and get all to-do tasks from local storgae and populate empty array
         const savedObj= (JSON.parse(localStorage.getItem(localStorage.key(i))));
+
+        totalList.push(savedObj);
 
         if (savedObj.subtaskPresent===true){
           continue;
@@ -119,12 +90,7 @@ const lists = (() => {
             if((((JSON.parse(localStorage.getItem(localStorage.key(i)))).classForTitle)!==undefined)
             && (((JSON.parse(localStorage.getItem(localStorage.key(i)))).subtaskTitle)!==undefined)
             && ((newTitleVersion)===((JSON.parse(localStorage.getItem(localStorage.key(i)))).classForTitle))){
-            // console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).classForTitle);
-            // console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).subtaskTitle);
-            // console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle);
-
-            // console.log(newTitleVersion);
-
+           
             const subTaskItem= document.createElement("div");
             subTaskItem.classList.add("subtasks-read-out");
             subTaskItem.textContent= ((JSON.parse(localStorage.getItem(localStorage.key(i)))).subtaskTitle);
@@ -137,91 +103,8 @@ const lists = (() => {
 
             placeHolder.appendChild(subTaskItem);
             };
-
-            
             };
-
-          // subTasks.addEventListener("click", fxn.showPopupProjectSubtasks);
-
-          // form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
-          //   e.preventDefault();
-
-          //   const taskTitleValue = () => {
-          //     return e.path[0][1].value;
-          //   };
-
-          //   const dueDateValue = () => {
-          //     if (
-          //       e.path[0][2].value === "" ||
-          //       e.path[0][2].value === undefined
-          //     ) {
-          //       return "No Date Given";
-          //     } else {
-          //       const updatedDate = addDays(new Date(e.path[0][2].value), 1);
-          //       return `Due date: ${format(
-          //         new Date(updatedDate),
-          //         "MMMM. do. yyyy"
-          //       )}`;
-          //     }
-          //   };
-
-          //   const dateDifference = () => {
-          //     if (dueDateValue() === "No Date Given") {
-          //       return "No Date Given";
-          //     } else {
-          //       return formatDistanceToNow(new Date(e.path[0][2].value), {
-          //         addSuffix: true,
-          //       });
-          //     }
-          //   };
-
-          //   const readOut = document.createElement("div");
-          //   readOut.classList.add("subtasks-read-out");
-          //   readOut.textContent = `${taskTitleValue()}`; // ${dueDateValue()}, ${dateDifference()}.`;
-
-          //   readOut.addEventListener("click", (e) => {
-          //     readOut.classList.add("clicked");
-          //     window.location.reload();
-          //   });
-
-          //   placeHolder.appendChild(readOut);
-
-          //   const subtaskData = {
-          //     overallTask: savedObj.title,
-          //     classForTitle: savedObj.title.replace(/ /g, ""),
-          //     subtaskTitle: readOut.textContent,
-          //     subtaskPresent: true,
-          //     keyTitle: `subtask: ${readOut.textContent}`,
-          //   };
-
-          //   const saveData = (() => {
-          //     if (typeof Storage !== "undefined") {
-          //       // Store
-          //       localStorage.setItem(
-          //         JSON.stringify(`subtask: ${readOut.textContent}`),
-          //         JSON.stringify(subtaskData)
-          //       );
-          //       // Retrieve
-          //       // localStorage.getItem("lastname");
-          //     } else {
-          //       const sorryText = document.createElement("div");
-          //       sorryText.textContent =
-          //         "Sorry, your browser does not support storage of previous tasks.";
-          //       document.main.appendChild(sorryText);
-          //     }
-          //   })();
-
-          //   window.location.reload();
-
-          //   fxn.closePopup();
-          // });
         };
-
-        //add stuff here for sublists
-        // for (let i = 0; i < localStorage.length; i++) {
-        //   console.log((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle);
-        // };
-
 
         const containerCompleteBtn = document.createElement("button");
         containerCompleteBtn.classList.add("container-complete-btn");
@@ -244,6 +127,7 @@ const lists = (() => {
       }
       //out of the loop
 
+      //if local storgae is not available send this message
     } else {
       const sorryText = document.createElement("div");
       sorryText.textContent =
@@ -252,22 +136,15 @@ const lists = (() => {
     }
   })();
 
+  //loop and get all to-do sub-tasks from local storgae and populate project to-do's
   const saveSubtaskData = (() => {
     if (typeof Storage !== "undefined") {
       // Store
       // Retrieve
       for (let i = 0; i < localStorage.length; i++) {
         if(((JSON.parse(localStorage.getItem(localStorage.key(i)))).keyTitle)!== undefined){
-        // console.log((JSON.parse(localStorage.getItem(localStorage.key(i))))); //subtask object
         const project= (((JSON.parse(localStorage.getItem(localStorage.key(i)))).overallTask));
         const overallProjectClass= (project.replace(/ /g, "")); //same as title and container id
-        // const projectSource= document.querySelector(`#${project}`);
-        // console.log(projectSource);
-        // const projectSource = document.querySelector(`.${overallProjectClass}`);
-        // console.log(projectSource);
-        // const completeBtn = document.querySelector(".container-complete-btn");
-        // console.log(completeBtn);
-        // console.log(completeBtn.previousElementSibling);  
         }
         };
         
@@ -279,8 +156,7 @@ const lists = (() => {
     }
   })();
 
-  // console.log(totalList);
-
+  //after getting to-do's from loacl storage, format new to-do's
   form.forTask.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -320,13 +196,15 @@ const lists = (() => {
       }
     };
 
-    const newTask = new Todo(taskTitleValue(), priorityValue(), dueDateValue()); //creates new object using values from form filled out
+    //creates new to-do object using values from form filled out
+    const newTask = new Todo(taskTitleValue(), priorityValue(), dueDateValue()); 
     const addReminderToTotalListArr = (() => {
       totalList.push(newTask);
     })();
 
     for (let i = totalList.length - 1; i < totalList.length; i++) {
-      //want to loop over everything and only add last object in array //format each object in an array
+      //format each object in an array
+      //want to loop over everything and only add last object in array 
       const taskContainer = document.createElement("div");
       taskContainer.classList.add("task-container");
       doc.main.appendChild(taskContainer);
@@ -371,12 +249,7 @@ const lists = (() => {
         taskContainer.classList.add("container-low-priority");
       }
 
-      //start delete
-      // console.log(taskContainer); //DOM version of a task icon
-      console.log(newTask);
-      // console.log(JSON.stringify(taskContainer)); //empty object
-      // console.log(JSON.stringify(newTask));
-
+      //store all default to-do data in local storage 
       const importantData= {
         title: newTask.taskTitle,
         rawDate: dueDateValue(),
@@ -389,7 +262,6 @@ const lists = (() => {
           // Store
           localStorage.setItem(JSON.stringify(newTask.taskTitle), JSON.stringify(importantData));
           // Retrieve
-          // localStorage.getItem("lastname");
         } else {
           const sorryText = document.createElement("div");
           sorryText.textContent =
@@ -397,14 +269,12 @@ const lists = (() => {
           document.main.appendChild(sorryText);
         }
       })();
-
-      //end delete
     }
-    
     //end of loop for default list
     fxn.closePopup();
   });
 
+    //after formatting default new to-do's, format project to-do's
     form.forTaskProject.addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -444,17 +314,19 @@ const lists = (() => {
         }
       };
 
+      //creates new object using values from form filled out
       const newTask = new Todo(
         taskTitleValue(),
         priorityValue(),
         dueDateValue()
-      ); //creates new object using values from form filled out
+      ); 
       const addReminderToTotalListArr = (() => {
         totalList.push(newTask);
       })();
 
       for (let i = totalList.length - 1; i < totalList.length; i++) {
-        //want to loop over everything and only add last object in array //format each object in an array
+        //format each object in an array
+        //want to loop over everything and only add last object in array 
         const taskContainer = document.createElement("div");
         taskContainer.classList.add("task-container");
         doc.main.appendChild(taskContainer);
@@ -490,97 +362,6 @@ const lists = (() => {
         const placeHolder = document.createElement("div");
         taskContainer.appendChild(placeHolder);
 
-        // subTasks.addEventListener("click", fxn.showPopupProjectSubtasks);
-
-        // form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
-        // e.preventDefault();
-
-        // // console.log(e);
-        // // console.log(e.path[2].childNodes);
-        // // // console.log(e.path[2].childNodes[`${e.path[2].childNodes.length-2}`].childNodes[2].childNodes[i].childNodes[0].textContent);
-
-        // // console.log(e.path[2].childNodes[11].childNodes[2].childNodes.length);
-        // // const mentForContainer=(e.path[2].childNodes[11].childNodes[2].childNodes[1].childNodes[0].textContent);
-        // // const currentContainer=(containerTitle.textContent);
-        
-
-
-
-
-        // const taskTitleValue = () => {
-        //   return e.path[0][1].value;
-        // };
-
-        // const dueDateValue = () => {
-        //   if (e.path[0][2].value === "" || e.path[0][2].value === undefined) {
-        //     return "No Date Given";
-        //   } else {
-        //     const updatedDate = addDays(new Date(e.path[0][2].value), 1);
-        //     return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
-        //   }
-        // };
-
-        // const dateDifference = () => {
-        //   if (dueDateValue() === "No Date Given") {
-        //     return "No Date Given";
-        //   } else {
-        //     return formatDistanceToNow(new Date(e.path[0][2].value), {
-        //       addSuffix: true,
-        //     });
-        //   }
-        // };
-
-        // // for (let i = 0; i < (e.path[2].childNodes[11].childNodes[2].childNodes.length); i++) {
-          
-        // // if((e.path[2].childNodes[11].childNodes[2].childNodes[1].childNodes[0].textContent)
-        // // ===(containerTitle.textContent)){
-
-        // const readOut= document.createElement("div");
-        // readOut.classList.add("subtasks-read-out");
-        // readOut.textContent= `${taskTitleValue()}` // ${dueDateValue()}, ${dateDifference()}.`;
-
-        // readOut.addEventListener("click", (e)=>{
-        //   readOut.classList.add("clicked");
-        //   window.location.reload();
-        // });
-
-        //   placeHolder.appendChild(readOut);
-        // // };
-        // // };
-
-        // const subtaskData = {
-        //   overallTask: containerTitle.textContent,
-        //   classForTitle: containerTitle.textContent.replace(/ /g, ""),
-        //   subtaskTitle: taskTitleValue(),
-        //   subtaskPresent: true,
-        //   keyTitle: `subtask: ${taskTitleValue()}`,
-        // };
-
-        // const saveData = (() => {
-        //   if (typeof Storage !== "undefined") {
-        //     // Store
-        //     localStorage.setItem(
-        //       JSON.stringify(`subtask: ${taskTitleValue()}`),
-        //       JSON.stringify(subtaskData)
-        //     );
-        //     // Retrieve
-        //     // localStorage.getItem("lastname");
-        //   } else {
-        //     const sorryText = document.createElement("div");
-        //     sorryText.textContent =
-        //       "Sorry, your browser does not support storage of previous tasks.";
-        //     document.main.appendChild(sorryText);
-        //   }
-        // })();
-
-        // window.location.reload();
-
-        // fxn.closePopup();
-        // });
-
-        // const placeHolder= document.createElement("div");
-        // taskContainer.appendChild(placeHolder);
-
         const containerCompleteBtn = document.createElement("button");
         containerCompleteBtn.classList.add("container-complete-btn");
         containerCompleteBtn.textContent = "Completed";
@@ -599,13 +380,13 @@ const lists = (() => {
           taskContainer.classList.add("container-low-priority");
         }
 
+        //store project to-do data in local storage
         const importantData = {
           title: containerTitle.textContent,
           classForTitle: containerTitle.textContent.replace(/ /g, ""),
           rawDate: dueDateValue(),
           priorityLevel: newTask.priorityLevel,
           dateDifference: dateDifference(),
-          // subTasks: document.querySelectorAll(".subtasks-read-out"),
           subTasks: document.querySelectorAll(".subtasks-read-out"),
           project: true,
         };
@@ -615,7 +396,6 @@ const lists = (() => {
           // Store
           localStorage.setItem(JSON.stringify(`PROJECT: ${newTask.taskTitle}`), JSON.stringify(importantData));
           // Retrieve
-          // localStorage.getItem("lastname");
         } else {
           const sorryText = document.createElement("div");
           sorryText.textContent =
@@ -625,15 +405,15 @@ const lists = (() => {
       })();
 
       }
-      //end of loop for project list
+      //end of loop for project to-do's list
       window.location.reload();
       fxn.closePopup();
     });
 
+  //format "delete" btn fxn
   doc.main.addEventListener("click", (e) => {
     if (e.target.textContent === "Delete") {
       const wholeContainer = e.path[1]; //same as taskContainer
-      // console.log((e.path[1]).getAttribute("id")); // in DOM
       const indexPosition = totalList.findIndex(matching);
 
       function matching(index) {
@@ -653,6 +433,7 @@ const lists = (() => {
     }
   });
 
+  //format "completed" btn fxn
   doc.main.addEventListener("click", (e) => {
     if (e.target.textContent === "Completed") {
       const wholeContainer = e.path[1]; //same as taskContainer
@@ -662,19 +443,14 @@ const lists = (() => {
       };
 
       localStorage.removeItem(`"${wholeContainer.getAttribute("id")}"`);
-      // console.log(e.path[1].children[5].childNodes);
       const subTaskList = e.path[1].children[5].childNodes;
-      // console.log(subTaskList.length);
-      // console.log(subTaskList[1]);
-      // console.log(subTaskList[1].textContent);
       for (let i = 0; i < subTaskList.length; i++) {
         localStorage.removeItem(`"subtask: ${subTaskList[i].textContent}"`);
       };
-
-      
       }
   });
 
+  //format btns in nav section to filter list shown by priority
   doc.nav.addEventListener("click", (e) => {
     const btnText = e.path[0].textContent;
     const itemContainers = document.querySelectorAll(".task-container");
@@ -728,16 +504,17 @@ const lists = (() => {
     }
     // This is still nav click events, add New Project stuff here.
   });
-
   // end of lists
 })();
 
+//format additional btns on main doc
 const logic = (() => {
   doc.headerBtn.addEventListener("click", fxn.showPopup);
   form.overlay.addEventListener("click", fxn.closePopup);
   doc.addProject.addEventListener("click", fxn.showPopupProject);
 })();
 
+//format "subtask" btn fxn on project to-do's
 const subtaskBtnFxn=(()=>{
 
   const subtaskBtns= document.querySelectorAll(".sub-tasks-btn");
@@ -746,13 +523,9 @@ const subtaskBtnFxn=(()=>{
   const emptyArr=[];
 
   function addToContainer(e) {
-    // console.log(e.path[1]); //overall div container in html form
     const overallDiveContainerPlaceHolder = (e.path[1].childNodes[5]);
-    // console.log(e.path[1].childNodes[0].textContent); //div container title
     const containerTitleName= (e.path[1].childNodes[0].textContent);
-    // console.log(e.path[1].childNodes[0].textContent.replace(/ /g, "")); //div container title no spaces
     const containerTitleNameNoSpaces= (e.path[1].childNodes[0].textContent.replace(/ /g, ""));
-    // console.log(e.path[1].childNodes[5]);//readOut node
 
     emptyArr[0] = overallDiveContainerPlaceHolder;
     emptyArr[1]= containerTitleName;
@@ -761,23 +534,13 @@ const subtaskBtnFxn=(()=>{
     fxn.showPopupProjectSubtasks();
     form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
       e.preventDefault();
-      // console.log("you submitted a form!");
-      console.log(e); //form information
-      // console.log(containerTitleName);
-      // console.log(containerTitleNameNoSpaces);
-      // console.log(e.path[0][1].value);//form filled in information
       const formTitle = e.path[0][1].value;
       emptyArr[3] = formTitle;
-      // console.log(emptyArr);
 
       const grabOverallContainerPlaceHolder = emptyArr[0];
       const containerTitle = emptyArr[1];
       const classTitleNoSpaces = emptyArr[2];
       const subTaskTitle = emptyArr[3];
-
-      console.log(grabOverallContainerPlaceHolder);
-      console.log(containerTitle);
-      console.log(subTaskTitle);
 
       const readOut = document.createElement("div");
         readOut.classList.add("subtasks-read-out");
@@ -790,6 +553,7 @@ const subtaskBtnFxn=(()=>{
 
         grabOverallContainerPlaceHolder.appendChild(readOut);
 
+        //store subtask data in local storage
         const subtaskData = {
           overallTask: containerTitle,
           classForTitle: containerTitle.replace(/ /g, ""),
@@ -806,7 +570,6 @@ const subtaskBtnFxn=(()=>{
               JSON.stringify(subtaskData)
             );
             // Retrieve
-            // localStorage.getItem("lastname");
           } else {
             const sorryText = document.createElement("div");
             sorryText.textContent =
@@ -814,109 +577,7 @@ const subtaskBtnFxn=(()=>{
             document.main.appendChild(sorryText);
           }
         })();
-
       window.location.reload();
       fxn.closePopup();
     });
-
-
-
-    // console.log(`${e.path[1].childNodes[0].textContent} subtask is: ${formTitle}`);
-
-    // subTasks.addEventListener("click", fxn.showPopupProjectSubtasks);
-
-    //     form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
-    //     e.preventDefault();
-
-    //     // console.log(e);
-    //     // console.log(e.path[2].childNodes);
-    //     // // console.log(e.path[2].childNodes[`${e.path[2].childNodes.length-2}`].childNodes[2].childNodes[i].childNodes[0].textContent);
-
-    //     // console.log(e.path[2].childNodes[11].childNodes[2].childNodes.length);
-    //     // const mentForContainer=(e.path[2].childNodes[11].childNodes[2].childNodes[1].childNodes[0].textContent);
-    //     // const currentContainer=(containerTitle.textContent);
-
-    //     const taskTitleValue = () => {
-    //       return e.path[0][1].value;
-    //     };
-
-    //     const dueDateValue = () => {
-    //       if (e.path[0][2].value === "" || e.path[0][2].value === undefined) {
-    //         return "No Date Given";
-    //       } else {
-    //         const updatedDate = addDays(new Date(e.path[0][2].value), 1);
-    //         return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
-    //       }
-    //     };
-
-    //     const dateDifference = () => {
-    //       if (dueDateValue() === "No Date Given") {
-    //         return "No Date Given";
-    //       } else {
-    //         return formatDistanceToNow(new Date(e.path[0][2].value), {
-    //           addSuffix: true,
-    //         });
-    //       }
-    //     };
-
-    //     // for (let i = 0; i < (e.path[2].childNodes[11].childNodes[2].childNodes.length); i++) {
-
-    //     // if((e.path[2].childNodes[11].childNodes[2].childNodes[1].childNodes[0].textContent)
-    //     // ===(containerTitle.textContent)){
-
-    //     const readOut= document.createElement("div");
-    //     readOut.classList.add("subtasks-read-out");
-    //     readOut.textContent= `${taskTitleValue()}` // ${dueDateValue()}, ${dateDifference()}.`;
-
-    //     readOut.addEventListener("click", (e)=>{
-    //       readOut.classList.add("clicked");
-    //       window.location.reload();
-    //     });
-
-    //       placeHolder.appendChild(readOut);
-    //     // };
-    //     // };
-
-    //     const subtaskData = {
-    //       overallTask: containerTitle.textContent,
-    //       classForTitle: containerTitle.textContent.replace(/ /g, ""),
-    //       subtaskTitle: taskTitleValue(),
-    //       subtaskPresent: true,
-    //       keyTitle: `subtask: ${taskTitleValue()}`,
-    //     };
-
-    //     const saveData = (() => {
-    //       if (typeof Storage !== "undefined") {
-    //         // Store
-    //         localStorage.setItem(
-    //           JSON.stringify(`subtask: ${taskTitleValue()}`),
-    //           JSON.stringify(subtaskData)
-    //         );
-    //         // Retrieve
-    //         // localStorage.getItem("lastname");
-    //       } else {
-    //         const sorryText = document.createElement("div");
-    //         sorryText.textContent =
-    //           "Sorry, your browser does not support storage of previous tasks.";
-    //         document.main.appendChild(sorryText);
-    //       }
-    //     })();
-
-    //     window.location.reload();
-
-    //     fxn.closePopup();
-    // });
   }})();
-
-const saveData=(()=>{
-  if (typeof(Storage) !== "undefined") {
-  // Store
-  // localStorage.setItem("lastname", "Smith");
-  // Retrieve
-  // localStorage.getItem("lastname");
-} else {
-  const sorryText=document.createElement("div"); 
-  sorryText.textContent= "Sorry, your browser does not support storage of previous tasks.";
-  document.main.appendChild(sorryText);
-}
-})();

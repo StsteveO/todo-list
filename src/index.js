@@ -161,7 +161,7 @@ const lists = (() => {
     e.preventDefault();
 
     const taskTitleValue = () => {
-      return e.path[0][1].value;
+      return e.composedPath()[0][1].value;
     };
 
     const priorityValue = () => {
@@ -178,10 +178,10 @@ const lists = (() => {
     };
 
     const dueDateValue = () => {
-      if (e.path[0][2].value === "" || e.path[0][2].value === undefined) {
+      if (e.composedPath()[0][2].value === "" || e.composedPath()[0][2].value === undefined) {
         return "No Date Given";
       } else {
-        const updatedDate = addDays(new Date(e.path[0][2].value), 1);
+        const updatedDate = addDays(new Date(e.composedPath()[0][2].value), 1);
         return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
       }
     };
@@ -190,7 +190,7 @@ const lists = (() => {
       if (dueDateValue() === "No Date Given") {
         return;
       } else {
-        return formatDistanceToNow(new Date(e.path[0][2].value), {
+        return formatDistanceToNow(new Date(e.composedPath()[0][2].value), {
           addSuffix: true,
         });
       }
@@ -279,7 +279,7 @@ const lists = (() => {
       e.preventDefault();
 
       const taskTitleValue = () => {
-        return e.path[0][1].value;
+        return e.composedPath()[0][1].value;
       };
 
       const priorityValue = () => {
@@ -296,10 +296,10 @@ const lists = (() => {
       };
 
       const dueDateValue = () => {
-        if (e.path[0][2].value === "" || e.path[0][2].value === undefined) {
+        if (e.composedPath()[0][2].value === "" || e.composedPath()[0][2].value === undefined) {
           return "No Date Given";
         } else {
-          const updatedDate = addDays(new Date(e.path[0][2].value), 1);
+          const updatedDate = addDays(new Date(e.composedPath()[0][2].value), 1);
           return `Due date: ${format(new Date(updatedDate), "MMMM. do. yyyy")}`;
         }
       };
@@ -308,7 +308,7 @@ const lists = (() => {
         if (dueDateValue() === "No Date Given") {
           return;
         } else {
-          return formatDistanceToNow(new Date(e.path[0][2].value), {
+          return formatDistanceToNow(new Date(e.composedPath()[0][2].value), {
             addSuffix: true,
           });
         }
@@ -413,11 +413,11 @@ const lists = (() => {
   //format "delete" btn fxn
   doc.main.addEventListener("click", (e) => {
     if (e.target.textContent === "Delete") {
-      const wholeContainer = e.path[1]; //same as taskContainer
+      const wholeContainer = e.composedPath()[1]; //same as taskContainer
       const indexPosition = totalList.findIndex(matching);
 
       function matching(index) {
-        return index.taskTitle === e.path[1].getAttribute("id");
+        return index.taskTitle === e.composedPath()[1].getAttribute("id");
       }
 
       totalList.splice(indexPosition, 1);
@@ -425,7 +425,7 @@ const lists = (() => {
 
       localStorage.removeItem(`"${wholeContainer.getAttribute("id")}"`);
 
-      const subTaskList = e.path[1].children[5].childNodes;
+      const subTaskList = e.composedPath()[1].children[5].childNodes;
 
       for (let i = 0; i < subTaskList.length; i++) {
         localStorage.removeItem(`"subtask: ${subTaskList[i].textContent}"`);
@@ -436,14 +436,14 @@ const lists = (() => {
   //format "completed" btn fxn
   doc.main.addEventListener("click", (e) => {
     if (e.target.textContent === "Completed") {
-      const wholeContainer = e.path[1]; //same as taskContainer
+      const wholeContainer = e.composedPath()[1]; //same as taskContainer
 
       for (let i = 0; i < wholeContainer.children.length-1; i++) {
         wholeContainer.children[i].classList.add("clicked");
       };
 
       localStorage.removeItem(`"${wholeContainer.getAttribute("id")}"`);
-      const subTaskList = e.path[1].children[5].childNodes;
+      const subTaskList = e.composedPath()[1].children[5].childNodes;
       for (let i = 0; i < subTaskList.length; i++) {
         localStorage.removeItem(`"subtask: ${subTaskList[i].textContent}"`);
       };
@@ -452,7 +452,7 @@ const lists = (() => {
 
   //format btns in nav section to filter list shown by priority
   doc.nav.addEventListener("click", (e) => {
-    const btnText = e.path[0].textContent;
+    const btnText = e.composedPath()[0].textContent;
     const itemContainers = document.querySelectorAll(".task-container");
 
     if (btnText === "High Priority") {
@@ -523,9 +523,9 @@ const subtaskBtnFxn=(()=>{
   const emptyArr=[];
 
   function addToContainer(e) {
-    const overallDiveContainerPlaceHolder = (e.path[1].childNodes[5]);
-    const containerTitleName= (e.path[1].childNodes[0].textContent);
-    const containerTitleNameNoSpaces= (e.path[1].childNodes[0].textContent.replace(/ /g, ""));
+    const overallDiveContainerPlaceHolder = (e.composedPath()[1].childNodes[5]);
+    const containerTitleName= (e.composedPath()[1].childNodes[0].textContent);
+    const containerTitleNameNoSpaces= (e.composedPath()[1].childNodes[0].textContent.replace(/ /g, ""));
 
     emptyArr[0] = overallDiveContainerPlaceHolder;
     emptyArr[1]= containerTitleName;
@@ -534,7 +534,7 @@ const subtaskBtnFxn=(()=>{
     fxn.showPopupProjectSubtasks();
     form.forTaskProjectSubtasks.addEventListener("submit", (e) => {
       e.preventDefault();
-      const formTitle = e.path[0][1].value;
+      const formTitle = e.composedPath()[0][1].value;
       emptyArr[3] = formTitle;
 
       const grabOverallContainerPlaceHolder = emptyArr[0];
